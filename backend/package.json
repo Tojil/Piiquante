@@ -1,0 +1,15 @@
+{
+  "name": "hot-sauces",
+  "version": "1.0.0",
+  "description": "salsas-picantes",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git"
+  },
+  "author": "Sergio Canto Sabido",
+  "license": "ISC"
+}
