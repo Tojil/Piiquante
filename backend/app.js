@@ -1,9 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const path = require('path');
 
 const sauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
+const { use } = require('./routes/sauce');
+const { join } = require('path');
 
 mongoose.connect('mongodb+srv://piiquante:piiquante@cluster0.n16ez.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', 
 {
@@ -26,6 +29,8 @@ mongoose.connect('mongodb+srv://piiquante:piiquante@cluster0.n16ez.mongodb.net/m
   });
 
 app.use(bodyParser.json());
+
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use('/api/sauces', sauceRoutes); // Enregistrement du routeur pour toutes les demandes effectuées vers /api/sauces
 app.use('/api/auth', userRoutes);
