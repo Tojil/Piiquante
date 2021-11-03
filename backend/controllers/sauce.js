@@ -1,17 +1,26 @@
 const Sauce = require('../models/Sauce');
-const { get } = require('../routes/sauce');
 const fs = require('fs');
-const { json } = require('body-parser');
 
-exports.createSauces = (req, res, next) => {
+// Create Sauce
+exports.createSauce = (req, res, next) => {
     const sauceObject = JSON.parse(req.body.sauce);
+    console.log(req.file.filename);
+    delete sauceObject._id;
+    // Creation d'une nouvelle instance du modèle Sauce
     const sauce = new Sauce({
-        ...sauceObject,
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+      ...sauceObject,
+      // Génère url de l'image
+      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+      likes: 0,
+      dislikes: 0,
+      usersLiked: '',
+      usersDisliked: ''
     });
-    sauce.save()
-    .then(() => res.status(201).json({ message: 'Sauce créé !'}))
-    .catch(error => res.status(400).json({ error }));
+    console.log(sauceObject);
+    sauce.save()// Enregistre dans la db l'objet et renvoie une promesse
+      .then(() => res.status(201).json({ message: 'Nouvelle sauce enregistrée !'}))
+      .catch(error => res.status(400).json({ error }));
+      console.log(sauce);
 };
 
 exports.modifySauce = (req, res, next) => {
