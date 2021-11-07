@@ -6,11 +6,31 @@ const sauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
 
 mongoose.connect('mongodb+srv://piiquante:piiquante@cluster0.n16ez.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', 
-{
+  {
+  dbName: process.env.DB_NAME,
+  user: process.env.DB_USER,
+  pass: process.env.DB_PASS,
   useNewUrlParser: true,
-  useUnifiedTopology: true })
-  .then(() => console.log('Conexion à MongoDB réussi !'))
-  .catch(() => console.log('connexion à MongoDB échouée !'))
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+ })
+ .then(() => {
+  console.log("Database connected");
+ })
+ .catch((error) => {
+  console.log(error);
+ });
+
+// mongoose.connect('mongodb+srv://piiquante:piiquante@cluster0.n16ez.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', 
+// {
+//   dbName: process.env.DB_NAME,
+//   user: process.env.DB_USER,
+//   pass: process.env.DB_PASS,
+//   useNewUrlParser: true,
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true })
+//   .then(() => console.log('Conexion à MongoDB réussi !'))
+//   .catch(() => console.log('connexion à MongoDB échouée !'))
 
   const app = express();
 
